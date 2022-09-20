@@ -1,25 +1,27 @@
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Button from '../button/button';
 
-import { CartContext } from '../../context/cartContext';
+import { useNavigate } from 'react-router-dom';
+import { selectCartItems } from '../../store/cart/cart.selector';
+import { addItemToCart } from '../../store/cart/cart.action';
 
 import './productCard.styles.scss';
-import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
   const { name, imageUrl, price, id } = product;
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartItems = useSelector(selectCartItems);
 
   const clickHandle = () => navigate(`/${id}`)
 
-  const { addItemToCart } = useContext(CartContext);
-
-  const addcartItem = () => addItemToCart(product);
+  const addcartItem = () => dispatch(addItemToCart(product, cartItems));
 
   return (
     <div className='product-card-container' >
-      <img src={imageUrl} alt={name} onClick={clickHandle}/>
+      <img src={imageUrl} alt={name} onClick={clickHandle} />
       <div className='footer'>
         <p>{name}</p>
         <p>{price}</p>

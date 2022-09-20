@@ -1,10 +1,11 @@
-import { useContext, useState } from 'react';
-import { UserContext } from '../../context/userContext';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { signUp } from '../../utils/firebase-utils';
 
 import Button from '../button/button';
-
 import FormInput from '../formInput/formInput';
+
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 import './signUpForm.styles.scss';
 
@@ -17,7 +18,7 @@ const defaultFormFields = {
 
 const SignUpForm = ({ errMsg }) => {
 
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;

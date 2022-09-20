@@ -73,13 +73,9 @@ export const getCategoriesAndDocs = async () => {
   const q = query(collectionRef);
   const querSnapshot = await getDocs(q);
 
-const categoryMap = querSnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLocaleLowerCase()] = items;
-    return acc;
-  }, {});
+  const categoryArray = querSnapshot.docs.map((doc) => doc.data());
 
-  return categoryMap;
+  return categoryArray;
 }
 
 //googleProvider

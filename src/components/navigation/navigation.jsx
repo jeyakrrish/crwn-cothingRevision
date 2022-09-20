@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 import { ReactComponent as Crown } from '../../assets/crown.svg';
 import CartIcon from '../cartIcon/cartIcon';
@@ -7,18 +7,16 @@ import CartDropdown from '../cartDropdown/cartDropdown';
 
 import { logOut } from '../../utils/firebase-utils';
 
-import { UserContext } from '../../context/userContext';
-import { CartContext } from '../../context/cartContext';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 import { Navigation, LogoContainer, NavLinksContainer, NavLink, } from './navigation.styles';
-// import './navigation.styles.scss';
+import { selectIsCartOpen } from '../../store/cart/cart.selector';
 
 const NavigationBar = () => {
-  const { currentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
+  const currentUser = useSelector(selectCurrentUser);
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOut = async () => await logOut();
-
 
   return (
     <>
@@ -33,7 +31,7 @@ const NavigationBar = () => {
             !currentUser ? <NavLink to='/auth'>SIGN IN</NavLink> :
               <NavLink as='span' onClick={signOut}
               >
-                <img src={currentUser.photoURL} alt={currentUser.displayName} />
+                {currentUser.photoURL && <img src={currentUser.photoURL} alt={'user'} />}
                 <p>SIGN OUT</p>
               </NavLink>
           }

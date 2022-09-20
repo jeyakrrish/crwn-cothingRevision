@@ -1,11 +1,12 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button';
 import FormInput from '../formInput/formInput';
 
 import { signIn, signInWithGooglePopup } from '../../utils/firebase-utils';
 
-import { UserContext } from '../../context/userContext';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 import './signInForm.styles.scss';
 
@@ -15,7 +16,7 @@ const defaultFormFields = {
 };
 
 const SignInForm = ({ errMsg }) => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;

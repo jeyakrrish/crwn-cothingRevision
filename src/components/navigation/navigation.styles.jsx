@@ -31,7 +31,7 @@ padding: 10px 15px;
 
       img {
         border-radius: 90px;
-        width: 20px;
+        width: 30px;
       }
 `
 export const Logo = styled(Link) `
