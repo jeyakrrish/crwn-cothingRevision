@@ -6,12 +6,16 @@ import storage from "redux-persist/lib/storage";
 
 import { rootReducer } from "./root-reducer";
 
-const middleware = [process.env.NODE_ENV !=='production' && logger].filter(Boolean);  //popular middleware
+import thunk from "redux-thunk";
+
+// const middleware = [process.env.NODE_ENV !=='production' && logger].filter(Boolean);  //popular middleware
+const middleware = [process.env.NODE_ENV !=='production' && logger, thunk].filter(Boolean);  //!thunk
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist:['user']
+  // blacklist:['user'],
+  whitelist:['cart']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

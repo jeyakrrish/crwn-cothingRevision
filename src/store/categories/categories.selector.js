@@ -16,5 +16,10 @@ export const selectCategoriesMap = createSelector(
   }, {})
 )
 
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoryReducer],
+  (categorySlice) => categorySlice.isLoading
+)
+
 //* selector is the place where your business logics placed
 //! reselect library included, it will make the function as memorized

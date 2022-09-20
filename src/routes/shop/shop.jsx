@@ -5,20 +5,14 @@ import { Route, Routes } from 'react-router-dom';
 import Category from '../../components/category/category';
 import CategoriesPreview from '../../components/categoriesPreview/categoriesPreview';
 
-import { getCategoriesAndDocs } from '../../utils/firebase-utils';
-
 import './shop.styles.scss';
-import { setCategoriesArray } from '../../store/categories/categories.action';
+import { fetchCategoriesAsync } from '../../store/categories/categories.action';
 
 const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    const getCategoriesArray = async() => {
-      const response = await getCategoriesAndDocs();  //querySnapshot.docs ARRAY
-      dispatch(setCategoriesArray(response));
-    }
-    getCategoriesArray();
+      dispatch(fetchCategoriesAsync());
   }, [])
 
   return (
@@ -30,3 +24,12 @@ const Shop = () => {
 }
 
 export default Shop;
+
+
+// useEffect(()=>{
+//   const getCategoriesArray = async() => {
+//     const response = await getCategoriesAndDocs();  //querySnapshot.docs ARRAY
+//     dispatch(setCategoriesArray(response));
+//   }
+//   getCategoriesArray();
+// }, [])
